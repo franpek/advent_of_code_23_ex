@@ -8,7 +8,7 @@ defmodule GearRatios do
 
   ## Examples
 
-      iex> GearRatios.gear_ratios("./apps/gear_ratios/files/example.txt")
+      iex> GearRatios.gear_ratios("./apps/day_03_gear_ratios/files/example.txt")
       4361
 
   """
@@ -77,7 +77,7 @@ defmodule GearRatios do
 
   ## Examples
 
-      iex> GearRatios.gear_ratios_two("./apps/gear_ratios/files/example.txt")
+      iex> GearRatios.gear_ratios_two("./apps/day_03_gear_ratios/files/example.txt")
       467835
 
   """

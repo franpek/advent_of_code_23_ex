@@ -8,7 +8,7 @@ defmodule Trebuchet2 do
 
   ## Examples
 
-      iex> Trebuchet2.calibration("./apps/trebuchet/files/example2.txt")
+      iex> Trebuchet2.calibration("./apps/day_01_trebuchet/files/example2.txt")
       281
 
   """

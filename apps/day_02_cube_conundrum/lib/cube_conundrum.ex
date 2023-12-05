@@ -8,7 +8,7 @@ defmodule CubeConundrum do
 
   ## Examples
 
-      iex> CubeConundrum.possible_games("./apps/cube_conundrum/files/example.txt")
+      iex> CubeConundrum.possible_games("./apps/day_02_cube_conundrum/files/example.txt")
       8
 
   """

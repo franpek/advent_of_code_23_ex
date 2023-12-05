@@ -8,7 +8,7 @@ defmodule Scratchcards do
 
   ## Examples
 
-      iex> Scratchcards.get_points("./apps/scratchcards/files/example.txt")
+      iex> Scratchcards.get_points("./apps/day_04_scratchcards/files/example.txt")
       13
 
   """
@@ -42,7 +42,7 @@ defmodule Scratchcards do
 
   ## Examples
 
-      iex> Scratchcards.get_real_points("./apps/scratchcards/files/example.txt")
+      iex> Scratchcards.get_real_points("./apps/day_04_scratchcards/files/example.txt")
       30
 
   """
