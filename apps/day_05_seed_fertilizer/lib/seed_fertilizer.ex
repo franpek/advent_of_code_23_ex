@@ -10,9 +10,6 @@ defmodule SeedFertilizer do
 
       iex> SeedFertilizer.get_lowest_location("./apps/day_05_seed_fertilizer/files/example.txt")
       35
-
-    :timer.tc(SeedFertilizer, :get_lowest_location, ["./apps/day_05_seed_fertilizer/files/example.txt"])
-      {2475, 35}
   """
   def get_lowest_location(path) do
     File.read!(path)
@@ -54,7 +51,6 @@ defmodule SeedFertilizer do
 
       iex> SeedFertilizer.get_new_lowest_location("./apps/day_05_seed_fertilizer/files/example.txt")
       46
-
   """
   def get_new_lowest_location(path) do
     File.read!(path)
@@ -71,8 +67,9 @@ defmodule SeedFertilizer do
     |> decompose_ranges
     |> Enum.map(&Enum.to_list/1)
     |> List.flatten
-    |> Enum.map(&String.to_integer/1)
-    |> Enum.map(&map_in_sample(&1, tl))
+    |> Enum.map(&Task.async(SeedFertilizer, :map_in_sample, [&1, tl]))
+    |> Enum.map(&Task.await(&1, :infinity))
+    |> List.flatten()
     |> Enum.min
   end
 
