@@ -19,7 +19,6 @@ defmodule CamelCards do
     |> Enum.map(&String.split(&1, " "))
     |> sort_by_type(joker)
     |> sort_by_card(joker)
-    |> IO.inspect
     |> Enum.with_index(1)
     |> Enum.map(fn { [_, _, bid] , rank }-> String.to_integer(bid) * rank  end )
     |> Enum.sum
@@ -47,92 +46,75 @@ defmodule CamelCards do
   ### Sort type methods
 
   def get_type(_hand, joker \\ false)
-  ##########################################
   def get_type([x,x,x,x,x], _), do: :five_oak
-  ##########################################
-  def get_type([  _,"J","J","J","J"], true), do: :five_oak
-  def get_type(["J","J","J","J",  _], true), do: :five_oak
-  def get_type([  x,  x,  x,  x,"J"], true), do: :five_oak
-  def get_type(["J",  x,  x,  x,  x], true), do: :five_oak
-  # -------------------------------------- #
-  def get_type([x,x,x,x,_], _), do: :four_oak
-  def get_type([_,x,x,x,x], _), do: :four_oak
-  ##########################################
-  def get_type(["J","J","J",  y,  y], true), do: :five_oak
-  def get_type([  y,  y,"J","J","J"], true), do: :five_oak
-  def get_type([  x,  x,  x,"J","J"], true), do: :five_oak
-  def get_type(["J","J",  x,  x,  x], true), do: :five_oak
-  # -------------------------------------- #
-  def get_type([  x,  x,  x,"J",  _], true), do: :four_oak
-  def get_type([  x,  x,  x,  _,"J"], true), do: :four_oak
-  def get_type(["J",  _,  x,  x,  x], true), do: :four_oak
-  def get_type([  _,"J",  x,  x,  x], true), do: :four_oak
-  def get_type([  _,"J",  x,  x,  x], true), do: :four_oak
-  def get_type([  _,  x,  x,  x,"J"], true), do: :four_oak
-  def get_type(["J",  x,  x,  x,  _], true), do: :four_oak
-  # -------------------------------------- #
-  def get_type([x,x,x,y,y], _), do: :full_house
-  def get_type([y,y,x,x,x], _), do: :full_house
-  ##########################################
-  def get_type(["J","J","J",  _,  _], true), do: :four_oak
-  def get_type([  _,  _,"J","J","J"], true), do: :four_oak
-  def get_type([  _,"J","J","J",  _], true), do: :four_oak
-  def get_type(["J",  _,  x,  x,  x], true), do: :four_oak
-  def get_type([  _,"J",  x,  x,  x], true), do: :four_oak
-  def get_type([  x,  x,  x,"J",  _], true), do: :four_oak
-  def get_type([  x,  x,  x,  _,"J"], true), do: :four_oak
-  # -------------------------------------- #
-  def get_type([x,x,x,_,_], _), do: :three_oak
-  def get_type([_,_,x,x,x], _), do: :three_oak
-  def get_type([_,x,x,x,_], _), do: :three_oak
-  ##########################################
-  def get_type(["J","J",  y,  y,  _], true), do: :four_oak
-  def get_type(["J","J",  _,  y,  y], true), do: :four_oak
-  def get_type([  _,"J","J",  y,  y], true), do: :four_oak
-  def get_type([  x,  x,"J","J",  _], true), do: :four_oak
-  def get_type([  x,  x,  _,"J","J"], true), do: :four_oak
-  def get_type([  _,  x,  x,"J","J"], true), do: :four_oak
-  # -------------------------------------- #
-  def get_type(["J",  x,  x,  y,  y], true), do: :full_house
-  def get_type([  x,  x,"J",  y,  y], true), do: :full_house
-  def get_type([  x,  x,  y,  y,"J"], true), do: :full_house
-  # -------------------------------------- #
-  def get_type([x,x,y,y,_], _), do: :two_pair
-  def get_type([x,x,_,y,y], _), do: :two_pair
-  def get_type([_,x,x,y,y], _), do: :two_pair
-  ##########################################
-  def get_type(["J","J",  _,  _,  _], true), do: :three_oak
-  def get_type([  _,"J","J",  _,  _], true), do: :three_oak
-  def get_type([  _,  _,"J","J",  _], true), do: :three_oak
-  def get_type([  _,  _,  _,"J","J"], true), do: :three_oak
-  # -------------------------------------- #
-  def get_type([  x,  x,"J",  _,  _], true), do: :three_oak
-  def get_type([  x,  x,  _,"J",  _], true), do: :three_oak
-  def get_type([  x,  x,  _,  _,"J"], true), do: :three_oak
-  def get_type(["J",  x,  x,  _,  _], true), do: :three_oak
-  def get_type([  _,  x,  x,"J",  _], true), do: :three_oak
-  def get_type([  _,  x,  x,  _,"J"], true), do: :three_oak
-  def get_type(["J",  _,  x,  x,  _], true), do: :three_oak
-  def get_type([  _,"J",  x,  x,  _], true), do: :three_oak
-  def get_type([  _,  _,  x,  x,"J"], true), do: :three_oak
-  def get_type(["J",  _,  _,  x,  x], true), do: :three_oak
-  def get_type([  _,"J",  _,  x,  x], true), do: :three_oak
-  def get_type([  _,  _,"J",  x,  x], true), do: :three_oak
-  # -------------------------------------- #
-  def get_type([x,x,_,_,_], _), do: :one_pair
-  def get_type([_,x,x,_,_], _), do: :one_pair
-  def get_type([_,_,x,x,_], _), do: :one_pair
-  def get_type([_,_,_,x,x], _), do: :one_pair
-  ##########################################
-  def get_type(["J",  _,  _,  _,  _], true), do: :one_pair
-  def get_type([  _,"J",  _,  _,  _], true), do: :one_pair
-  def get_type([  _,  _,"J",  _,  _], true), do: :one_pair
-  def get_type([  _,  _,  _,"J",  _], true), do: :one_pair
-  def get_type([  _,  _,  _,  _,"J"], true), do: :one_pair
-  # -------------------------------------- #
-  def get_type([_,_,_,_,_], _), do: :high_card
-  ##########################################
 
+  def get_type(hand = [x,x,x,x,_], joker), do: get_type_four_oak_aux(hand, joker)
+  def get_type(hand = [_,x,x,x,x], joker), do: get_type_four_oak_aux(hand, joker)
+
+  def get_type(hand = [x,x,x,y,y], joker), do: get_type_full_house_aux(hand, joker)
+  def get_type(hand = [y,y,x,x,x], joker), do: get_type_full_house_aux(hand, joker)
+
+  def get_type(hand = [x,x,x,_,_], joker), do: get_type_three_oak_aux(hand, joker)
+  def get_type(hand = [_,_,x,x,x], joker), do: get_type_three_oak_aux(hand, joker)
+  def get_type(hand = [_,x,x,x,_], joker), do: get_type_three_oak_aux(hand, joker)
+
+  def get_type(hand = [x,x,y,y,_], joker), do: get_type_two_pair_aux(hand, joker)
+  def get_type(hand = [x,x,_,y,y], joker), do: get_type_two_pair_aux(hand, joker)
+  def get_type(hand = [_,x,x,y,y], joker), do: get_type_two_pair_aux(hand, joker)
+
+  def get_type(hand = [x,x,_,_,_], joker), do: get_type_one_pair_aux(hand, joker)
+  def get_type(hand = [_,x,x,_,_], joker), do: get_type_one_pair_aux(hand, joker)
+  def get_type(hand = [_,_,x,x,_], joker), do: get_type_one_pair_aux(hand, joker)
+  def get_type(hand = [_,_,_,x,x], joker), do: get_type_one_pair_aux(hand, joker)
+
+  def get_type(hand = [_,_,_,_,_], joker), do: get_type_high_card_aux(hand, joker)
+
+  ###########################################
+  def get_type_full_house_aux(hand, joker) do
+    number_of_Js = hand |> Enum.filter(fn x -> x == "J" end) |> length
+    cond do
+      joker and number_of_Js > 1 -> :five_oak
+      joker and number_of_Js > 0 -> :four_oak
+      true  -> :full_house
+    end
+  end
+
+  def get_type_three_oak_aux(hand, joker) do
+    case joker and "J" in hand do
+      true  -> :four_oak
+      false -> :three_oak
+    end
+  end
+
+  def get_type_two_pair_aux(hand, joker) do
+    number_of_Js = hand |> Enum.filter(fn x -> x == "J" end) |> length
+    cond do
+      joker and number_of_Js > 1 -> :four_oak
+      joker and number_of_Js > 0 -> :full_house
+      true  -> :two_pair
+    end
+  end
+
+  def get_type_one_pair_aux(hand, joker) do
+    case joker and "J" in hand do
+      true  -> :three_oak
+      false -> :one_pair
+    end
+  end
+
+  def get_type_four_oak_aux(hand, joker) do
+    case joker and "J" in hand do
+      true  -> :five_oak
+      false -> :four_oak
+    end
+  end
+
+  def get_type_high_card_aux(hand, joker) do
+    case joker and "J" in hand do
+      true  -> :one_pair
+      false -> :high_card
+    end
+  end
 
   def get_type_value(:five_oak),   do: 6
   def get_type_value(:four_oak),   do: 5
@@ -166,7 +148,7 @@ defmodule CamelCards do
   ## Examples
 
       iex> CamelCards.get_total_winning_with_joker("./apps/day_07_camel_cards/files/example.txt")
-      6440
+      5905
 
   """
   def get_total_winning_with_joker(path), do: get_total_winning(path, true)
